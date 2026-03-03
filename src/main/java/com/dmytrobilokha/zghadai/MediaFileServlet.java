@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 @WebServlet(urlPatterns = {
-        "*.jpg", "*.jpeg", "*.png", "*.gif", "*.mpo", "*.3gp", "*.avi", "*.mov", "*.mp4", "*.mpg", "*.mts", "*.webm",
-        "*.JPG", "*.JPEG", "*.PNG", "*.GIF", "*.MPO", "*.3GP", "*.AVI", "*.MOV", "*.MP4", "*.MPG", "*.MTS", "*.WEBM"})
+    "*.jpg", "*.jpeg", "*.png", "*.gif", "*.mpo", "*.3gp", "*.avi", "*.mov", "*.mp4", "*.mpg", "*.mts", "*.webm",
+    "*.JPG", "*.JPEG", "*.PNG", "*.GIF", "*.MPO", "*.3GP", "*.AVI", "*.MOV", "*.MP4", "*.MPG", "*.MTS", "*.WEBM"})
 public class MediaFileServlet extends HttpServlet {
 
     private static final String RANGE_HEADER_START = "bytes=";
@@ -41,9 +41,10 @@ public class MediaFileServlet extends HttpServlet {
     private void handle(HttpServletRequest req,
                         HttpServletResponse resp,
                         boolean sendBody) throws IOException {
-        var path = ServletUtil.getRequestedFilesystemPath(req);
+        Path path = ServletUtil.getRequestedFilesystemPath(req);
+        Path fileNamePath = path.getFileName();
         try {
-            if (!filesystemService.isFileAvailable(path)) {
+            if (fileNamePath == null || !filesystemService.isFileAvailable(path)) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
@@ -64,8 +65,7 @@ public class MediaFileServlet extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
             return;
         }
-        String contentType = getServletContext()
-                .getMimeType(path.getFileName().toString());
+        String contentType = getServletContext().getMimeType(fileNamePath.toString());
         if (contentType == null) {
             contentType = "application/octet-stream";
         }

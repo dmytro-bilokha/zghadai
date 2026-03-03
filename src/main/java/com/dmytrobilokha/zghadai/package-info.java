@@ -1,0 +1,9 @@
+@ParametersAreNonnullByDefault
+@FieldsAreNonnullByDefault
+@ReturnValuesAreNonnullByDefault
+package com.dmytrobilokha.zghadai;
+
+import com.dmytrobilokha.zghadai.annotation.FieldsAreNonnullByDefault;
+import com.dmytrobilokha.zghadai.annotation.ReturnValuesAreNonnullByDefault;
+
+import javax.annotation.ParametersAreNonnullByDefault;

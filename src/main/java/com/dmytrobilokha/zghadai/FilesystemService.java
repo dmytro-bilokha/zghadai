@@ -28,12 +28,16 @@ public class FilesystemService {
         var videoFiles = new ArrayList<String>();
         try (var directoryStream = Files.newDirectoryStream(absolutePath)) {
             for (var entryPath : directoryStream) {
-                if (isExposableDirectory(entryPath)) {
-                    directories.add(entryPath.getFileName().toString());
+                var fileNamePath = entryPath.getFileName();
+                var fileNameString = fileNamePath == null ? null : fileNamePath.toString();
+                if (fileNameString == null) {
+                    // should never happen, but let's skip invalid path just in case
+                } else if (isExposableDirectory(entryPath)) {
+                    directories.add(fileNameString);
                 } else if (isImageFile(entryPath)) {
-                    imageFiles.add(entryPath.getFileName().toString());
+                    imageFiles.add(fileNameString);
                 } else if (isVideoFile(entryPath)) {
-                    videoFiles.add(entryPath.getFileName().toString());
+                    videoFiles.add(fileNameString);
                 }
             }
         }

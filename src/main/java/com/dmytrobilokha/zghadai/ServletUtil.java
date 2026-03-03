@@ -3,6 +3,7 @@ package com.dmytrobilokha.zghadai;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -30,7 +31,7 @@ public final class ServletUtil {
             throw new IllegalStateException("Failed to initialize message digest", e);
         }
         digest.update((size + path.toString()
-                + lastModifiedMillis).getBytes());
+                + lastModifiedMillis).getBytes(StandardCharsets.UTF_8));
         return "\"" + HexFormat.of().formatHex(digest.digest()) + "\"";
     }
 
