@@ -11,25 +11,25 @@
 
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <head>
-            <title>TEST: Jakarta EE 10 - JSPX</title>
+            <title>Zghadai</title>
         </head>
         <body>
         <h2>Directories</h2>
         <ul>
             <c:forEach var="item" items="${vm.directories}">
-                <li>${item}</li>
+                <li><a href="./${item}/">${item}</a></li>
             </c:forEach>
         </ul>
         <h2>Images</h2>
         <ul>
             <c:forEach var="item" items="${vm.images}">
-                <li>${item}</li>
+                <li><a href="./${item}">${item}</a></li>
             </c:forEach>
         </ul>
         <h2>Videos</h2>
         <ul>
             <c:forEach var="item" items="${vm.videos}">
-                <li>${item}</li>
+                <li><a href="./${item}">${item}</a></li>
             </c:forEach>
         </ul>
         </body>
