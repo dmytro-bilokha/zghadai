@@ -12,26 +12,33 @@
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <head>
             <title>Zghadai</title>
+            <script src="${pageContext.request.contextPath}/js/spotlight.bundle.js">not empty</script>
         </head>
         <body>
-        <h2>Directories</h2>
-        <ul>
-            <c:forEach var="item" items="${vm.directories}">
-                <li><a href="./${item}/">${item}</a></li>
-            </c:forEach>
-        </ul>
-        <h2>Images</h2>
-        <ul>
-            <c:forEach var="item" items="${vm.images}">
-                <li><a href="./${item}">${item}</a></li>
-            </c:forEach>
-        </ul>
-        <h2>Videos</h2>
-        <ul>
-            <c:forEach var="item" items="${vm.videos}">
-                <li><a href="./${item}">${item}</a></li>
-            </c:forEach>
-        </ul>
+            <h2>Directories</h2>
+            <ul>
+                <c:forEach var="item" items="${vm.directories}">
+                    <a href="./${item}/">${item}</a>
+                </c:forEach>
+            </ul>
+            <h2>Images</h2>
+                <c:forEach var="item" items="${vm.images}">
+                    <a class="spotlight" href="./${item}"><img src="./thumbnails/${item}" alt="${item}"/></a>
+                </c:forEach>
+            <h2>Videos</h2>
+            <ul>
+                <c:forEach var="item" items="${vm.videos}">
+                    <a class="spotlight" data-media="video"
+                       data-src-mp4="./${item}"
+                       data-poster="./thumbnails/${item}.jpg"
+                       data-autoplay="true"
+                       data-muted="false"
+                       data-preload="true"
+                       data-controls="true"
+                       data-inline="false"
+                    ><img src="./thumbnails/${item}.jpg" alt="${item}"/></a>
+                </c:forEach>
+            </ul>
         </body>
     </html>
 

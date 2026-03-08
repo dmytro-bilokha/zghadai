@@ -8,19 +8,31 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
+import java.util.Set;
 
 public final class ServletUtil {
 
     // TODO: make this a configuration
     private static final String CONTENT_ROOT = "/usr/home/dmytro/gallery-demo";
+    private static final Set<Path> STATIC_CONTENT_DIRS = Set.of(Path.of("/js"), Path.of("/css"));
 
     private ServletUtil() {
         // no instance
     }
 
+    public static Path getRequestedRelativePath(HttpServletRequest req) {
+        return Path.of(req.getRequestURI().substring(req.getContextPath().length())).normalize();
+    }
+
+    public static boolean isStaticContentRequested(HttpServletRequest req) {
+        var relativePath = getRequestedRelativePath(req);
+        return relativePath.getNameCount() > 1
+        && STATIC_CONTENT_DIRS.stream()
+                .anyMatch(relativePath::startsWith);
+    }
+
     public static Path getRequestedFilesystemPath(HttpServletRequest req) {
-        var relativePath = Path.of(req.getRequestURI().substring(req.getContextPath().length())).normalize();
-        return Path.of(CONTENT_ROOT + relativePath);
+        return Path.of(CONTENT_ROOT + getRequestedRelativePath(req));
     }
 
     public static String generateFileEtag(Path path, long lastModifiedMillis, long size) throws IOException {
