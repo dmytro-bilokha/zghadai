@@ -29,6 +29,12 @@
     transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
+.directory-list a[href="../"]::before {
+    content: "⬅";
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
 .directory-list a::before {
     content: "📁";
     font-size: 32px;

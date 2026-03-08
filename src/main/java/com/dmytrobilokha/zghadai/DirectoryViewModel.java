@@ -14,11 +14,13 @@ public class DirectoryViewModel {
     private final List<String> directories;
     private final List<String> images;
     private final List<String> videos;
+    private final boolean root;
 
-    public DirectoryViewModel(List<String> directories, List<String> images, List<String> videos) {
+    public DirectoryViewModel(List<String> directories, List<String> images, List<String> videos, boolean root) {
         this.directories = directories;
         this.images = images;
         this.videos = videos;
+        this.root = root;
     }
 
     public List<String> getDirectories() {
@@ -31,6 +33,10 @@ public class DirectoryViewModel {
 
     public List<String> getVideos() {
         return videos;
+    }
+
+    public boolean isRoot() {
+        return root;
     }
 
     public void forwardToView(HttpServletRequest request, HttpServletResponse response) {

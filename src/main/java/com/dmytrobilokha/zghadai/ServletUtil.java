@@ -13,7 +13,7 @@ import java.util.Set;
 public final class ServletUtil {
 
     // TODO: make this a configuration
-    private static final String CONTENT_ROOT = "/usr/home/dmytro/gallery-demo";
+    public static final String CONTENT_ROOT = "/usr/home/dmytro/gallery-demo";
     private static final Set<Path> STATIC_CONTENT_DIRS = Set.of(Path.of("/js"), Path.of("/css"));
 
     private ServletUtil() {

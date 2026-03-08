@@ -41,7 +41,8 @@ public class FilesystemService {
                 }
             }
         }
-        return new DirectoryViewModel(directories, imageFiles, videoFiles);
+        return new DirectoryViewModel(
+                directories, imageFiles, videoFiles, absolutePath.toString().equals(ServletUtil.CONTENT_ROOT));
     }
 
     public boolean isDirectoryAvailable(Path path) throws IOException {
