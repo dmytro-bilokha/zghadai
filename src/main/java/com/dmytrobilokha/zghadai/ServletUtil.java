@@ -35,7 +35,7 @@ public final class ServletUtil {
         return Path.of(CONTENT_ROOT + getRequestedRelativePath(req));
     }
 
-    public static String generateFileEtag(Path path, long lastModifiedMillis, long size) throws IOException {
+    public static String generateFileEtag(Path path, long lastModifiedMillis, long size) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-1");

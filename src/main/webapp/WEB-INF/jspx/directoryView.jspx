@@ -12,33 +12,29 @@
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <head>
             <title>Zghadai</title>
-            <script src="${pageContext.request.contextPath}/js/spotlight.bundle.js">not empty</script>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css"/>
         </head>
         <body>
-            <h2>Directories</h2>
-            <ul>
+            <div class="directory-list">
                 <c:forEach var="item" items="${vm.directories}">
                     <a href="./${item}/">${item}</a>
                 </c:forEach>
-            </ul>
-            <h2>Images</h2>
+            </div>
+            <div class="image-list">
                 <c:forEach var="item" items="${vm.images}">
-                    <a class="spotlight" href="./${item}"><img src="./thumbnails/${item}" alt="${item}"/></a>
+                    <a class="gallery-image" data-caption="${item}" data-fslightbox="gallery" href="./${item}">
+                        <img src="./thumbnails/${item}" alt="${item}"/>
+                    </a>
                 </c:forEach>
-            <h2>Videos</h2>
-            <ul>
+            </div>
+            <div class="video-list">
                 <c:forEach var="item" items="${vm.videos}">
-                    <a class="spotlight" data-media="video"
-                       data-src-mp4="./${item}"
-                       data-poster="./thumbnails/${item}.jpg"
-                       data-autoplay="true"
-                       data-muted="false"
-                       data-preload="true"
-                       data-controls="true"
-                       data-inline="false"
-                    ><img src="./thumbnails/${item}.jpg" alt="${item}"/></a>
+                    <a class="gallery-video" data-caption="${item}" data-fslightbox="gallery" href="./${item}">
+                        <img src="./thumbnails/${item}.jpg" alt="${item}"/>
+                    </a>
                 </c:forEach>
-            </ul>
+            </div>
+            <script src="${pageContext.request.contextPath}/js/fslightbox.js">not empty</script>
         </body>
     </html>
 

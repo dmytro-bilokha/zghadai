@@ -1,0 +1,120 @@
+.directory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px;
+}
+
+.directory-list a {
+    width: 120px;
+    height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    color: #222;
+
+    background: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+
+    padding: 8px;
+    box-sizing: border-box;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.directory-list a::before {
+    content: "📁";
+    font-size: 32px;
+    margin-bottom: 6px;
+}
+
+.directory-list a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    background: #ffffff;
+}
+
+.directory-list a:active {
+    transform: scale(0.98);
+}
+
+.directory-list a {
+    word-break: break-word;
+}
+
+a.gallery-image {
+    display: inline-block;
+    margin: 6px;
+    position: relative;
+}
+
+a.gallery-image > img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background: white;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+a.gallery-image > img:hover,
+a.gallery-video > img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+a.gallery-image::after,
+a.gallery-video::before {
+    content: attr(data-caption);
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+
+    color: white;
+    font-size: 10px;
+    line-height: 1.2;
+
+    background: rgba(0,0,0,0.55);
+    padding: 4px 8px;
+    border-radius: 4px;
+
+    max-width: 90%;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+a.gallery-video {
+    display: inline-block;
+    margin: 8px;
+    position: relative;
+}
+
+a.gallery-video > img {
+    width: 240px;
+    height: 150px;
+    object-fit: cover;
+
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+a.gallery-video::after {
+    content: "▶";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 28px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
