@@ -12,8 +12,6 @@ import java.util.Set;
 
 public final class ServletUtil {
 
-    // TODO: make this a configuration
-    public static final String CONTENT_ROOT = "/usr/home/dmytro/gallery-demo";
     private static final Set<Path> STATIC_CONTENT_DIRS = Set.of(Path.of("/js"), Path.of("/css"));
 
     private ServletUtil() {
@@ -29,10 +27,6 @@ public final class ServletUtil {
         return relativePath.getNameCount() > 1
         && STATIC_CONTENT_DIRS.stream()
                 .anyMatch(relativePath::startsWith);
-    }
-
-    public static Path getRequestedFilesystemPath(HttpServletRequest req) {
-        return Path.of(CONTENT_ROOT + getRequestedRelativePath(req));
     }
 
     public static String generateFileEtag(Path path, long lastModifiedMillis, long size) {

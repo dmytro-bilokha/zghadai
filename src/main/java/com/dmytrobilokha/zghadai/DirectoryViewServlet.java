@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 @WebServlet(urlPatterns = {"/"})
 public class DirectoryViewServlet extends HttpServlet {
@@ -32,7 +33,7 @@ public class DirectoryViewServlet extends HttpServlet {
             getServletContext().getNamedDispatcher("default").forward(req, resp);
             return;
         }
-        var absolutePath = ServletUtil.getRequestedFilesystemPath(req);
+        Path absolutePath = filesystemService.relativeToAbsolutePath(ServletUtil.getRequestedRelativePath(req));
         try {
             if (!filesystemService.isDirectoryAvailable(absolutePath)) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);

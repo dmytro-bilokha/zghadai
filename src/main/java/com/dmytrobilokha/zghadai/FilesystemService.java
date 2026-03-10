@@ -1,6 +1,7 @@
 package com.dmytrobilokha.zghadai;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -17,9 +18,23 @@ import java.util.Set;
 public class FilesystemService {
 
     private static final Path THUMBNAILS_DIR = Path.of("thumbnails");
-
     private static final Set<String> IMAGE_EXTENSIONS = Set.of("jpg", "jpeg", "png", "gif", "mpo");
     private static final Set<String> VIDEO_EXTENSIONS = Set.of("3gp", "avi", "mov", "mp4", "mpg", "mts", "webm");
+
+    private ConfigService configService;
+
+    public FilesystemService() {
+        // CDI no-args required constructor
+    }
+
+    @Inject
+    public FilesystemService(ConfigService configService) {
+        this.configService = configService;
+    }
+
+    public Path relativeToAbsolutePath(Path relativePath) {
+        return Path.of(configService.getContentRoot() + relativePath);
+    }
 
     // TODO: implement proper error handling with redirecting to error page, etc.
     public DirectoryViewModel buildDirectoryViewModel(Path absolutePath) throws IOException {
@@ -42,7 +57,7 @@ public class FilesystemService {
             }
         }
         return new DirectoryViewModel(
-                directories, imageFiles, videoFiles, absolutePath.toString().equals(ServletUtil.CONTENT_ROOT));
+                directories, imageFiles, videoFiles, absolutePath.toString().equals(configService.getContentRoot()));
     }
 
     public boolean isDirectoryAvailable(Path path) throws IOException {
@@ -99,7 +114,6 @@ public class FilesystemService {
         }
         var fileNameString = fileNamePath.toString();
         int lastDotIndex = fileNameString.lastIndexOf('.');
-
         if (lastDotIndex == -1 || lastDotIndex == fileNameString.length() - 1) {
             return false;
         }

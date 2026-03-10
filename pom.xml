@@ -9,6 +9,7 @@
 
     <properties>
         <jakarta.platform.version>10.0.0</jakarta.platform.version>
+        <microprofile.version>3.0</microprofile.version>
         <jsr305.version>3.0.2</jsr305.version>
         <slf4j.version>2.0.9</slf4j.version>
         <testng.version>7.12.0</testng.version>
@@ -39,6 +40,12 @@
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${jakarta.platform.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <version>${microprofile.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -41,7 +41,7 @@ public class MediaFileServlet extends HttpServlet {
     private void handle(HttpServletRequest req,
                         HttpServletResponse resp,
                         boolean sendBody) throws IOException {
-        Path path = ServletUtil.getRequestedFilesystemPath(req);
+        Path path = filesystemService.relativeToAbsolutePath(ServletUtil.getRequestedRelativePath(req));
         Path fileNamePath = path.getFileName();
         try {
             if (fileNamePath == null || !filesystemService.isFileAvailable(path)) {
