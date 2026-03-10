@@ -27,8 +27,8 @@ public class DirectoryViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (ServletUtil.isStaticContentRequested(req)) {
-            // This servlet has default mapping, so it is mapped to everything not covered by other application servlets,
-            // including static content of the .war artifact,
+            // This servlet has default mapping, so it is mapped to everything not covered by other application
+            // servlets, including static content of the .war artifact,
             // thus we need to bypass requests to static content to the servlet container's default servlet
             getServletContext().getNamedDispatcher("default").forward(req, resp);
             return;

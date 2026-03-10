@@ -2,7 +2,6 @@ package com.dmytrobilokha.zghadai;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -25,7 +24,7 @@ public final class ServletUtil {
     public static boolean isStaticContentRequested(HttpServletRequest req) {
         var relativePath = getRequestedRelativePath(req);
         return relativePath.getNameCount() > 1
-        && STATIC_CONTENT_DIRS.stream()
+                && STATIC_CONTENT_DIRS.stream()
                 .anyMatch(relativePath::startsWith);
     }
 
