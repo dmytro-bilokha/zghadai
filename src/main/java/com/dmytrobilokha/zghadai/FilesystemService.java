@@ -36,7 +36,6 @@ public class FilesystemService {
         return Path.of(configService.getContentRoot() + relativePath);
     }
 
-    // TODO: implement proper error handling with redirecting to error page, etc.
     public DirectoryViewModel buildDirectoryViewModel(Path absolutePath) throws IOException {
         var directories = new ArrayList<String>();
         var imageFiles = new ArrayList<String>();

@@ -82,17 +82,24 @@ public class MediaFileServlet extends HttpServlet {
         }
     }
 
-    // TODO: make parsing safer by catching exceptions
     private void handleRange(String rangeHeader,
                              Path path,
                              HttpServletResponse resp,
                              long fileSize,
                              boolean sendBody) throws IOException {
         String[] parts = rangeHeader.substring(RANGE_HEADER_START.length()).split("-", 2);
-        long start = parts[0].isEmpty() ? 0 : Long.parseLong(parts[0]);
-        long end = parts.length > 1 && !parts[1].isEmpty()
-                ? Long.parseLong(parts[1])
-                : fileSize - 1;
+        long start;
+        long end;
+        try {
+            start = parts[0].isEmpty() ? 0 : Long.parseLong(parts[0]);
+            end = parts.length > 1 && !parts[1].isEmpty()
+                    ? Long.parseLong(parts[1])
+                    : fileSize - 1;
+        } catch (NumberFormatException e) {
+            logger.warn("Got invalid range header: '{}", rangeHeader, e);
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
         if (start > end || end >= fileSize) {
             resp.setHeader("Content-Range",
                     "bytes */" + fileSize);

@@ -1,0 +1,76 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns="http://www.w3.org/1999/xhtml"
+          version="3.1">
+
+    <jsp:directive.page
+            contentType="text/html"
+            pageEncoding="UTF-8"
+            isELIgnored="false"
+            session="false"
+            isErrorPage="true"
+            trimDirectiveWhitespaces="true"/>
+
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+        <head>
+            <title>ERROR - Zghadai</title>
+            <style>
+                body {
+                font-family: Arial, sans-serif;
+                background: #f5f5f5;
+                margin: 40px;
+                }
+                .container {
+                background: white;
+                padding: 30px;
+                border-radius: 6px;
+                max-width: 600px;
+                margin: auto;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+                h1 { color: #c0392b; }
+                .code {
+                font-size: 22px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="code">
+                    Error
+                    ${pageContext.errorData.statusCode}
+                </div>
+                <c:choose>
+                    <c:when test="${pageContext.errorData.statusCode == 400}">
+                        <h1>Bad request</h1>
+                        <p>Server is unable to process your request.</p>
+                    </c:when>
+                    <c:when test="${pageContext.errorData.statusCode == 404}">
+                        <h1>Page not found</h1>
+                        <p>The page you requested does not exist.</p>
+                    </c:when>
+                    <c:when test="${pageContext.errorData.statusCode == 403}">
+                        <h1>Access denied</h1>
+                        <p>You do not have permission to access this page.</p>
+                    </c:when>
+                    <c:when test="${pageContext.errorData.statusCode == 416}">
+                        <h1>Invalid file range</h1>
+                        <p>The requested file range is invalid and can not be served.</p>
+                    </c:when>
+                    <c:when test="${pageContext.errorData.statusCode == 500}">
+                        <h1>Server error</h1>
+                        <p>Something went wrong on our server.</p>
+                        <p>Please try again later.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <h1>Unexpected error</h1>
+                        <p>An unexpected error occurred.</p>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </body>
+    </html>
+
+</jsp:root>

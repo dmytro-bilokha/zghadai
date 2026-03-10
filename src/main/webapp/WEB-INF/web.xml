@@ -16,12 +16,16 @@
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>
 
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-
   <error-page>
-    <location>/error</location>
+    <location>/WEB-INF/jspx/errorView.jspx</location>
   </error-page>
+
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jspx</url-pattern>
+      <scripting-invalid>true</scripting-invalid>
+      <is-xml>true</is-xml>
+    </jsp-property-group>
+  </jsp-config>
 
 </web-app>
