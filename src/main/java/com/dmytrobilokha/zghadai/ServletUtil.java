@@ -11,7 +11,8 @@ import java.util.Set;
 
 public final class ServletUtil {
 
-    private static final Set<Path> STATIC_CONTENT_DIRS = Set.of(Path.of("/js"), Path.of("/css"));
+    private static final Set<Path> STATIC_CONTENT_DIRS = Set.of(
+            Path.of("/js"), Path.of("/css"), Path.of("/image"));
 
     private ServletUtil() {
         // no instance
