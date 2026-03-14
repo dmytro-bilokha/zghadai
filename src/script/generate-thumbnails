@@ -1,0 +1,41 @@
+#!/bin/sh
+
+source_dir="$1"
+size="200x200"
+
+if [ -z "$source_dir" ]; then
+  echo "Usage: $0 /path/to/media"
+  exit 1
+fi
+
+if [ ! -d "$source_dir" ]; then
+  echo "Error: Directory does not exist."
+  exit 1
+fi
+
+find "$source_dir" \
+  -type d -name thumbnails -prune -o \
+  -type f -exec sh -c '
+    file="$1"
+    dir=$(dirname "$file")
+    mkdir -p "$dir/thumbnails"
+    filename=$(basename "$file")
+    output="$dir/thumbnails/$filename.tb.jpg"
+    mime=$(file -b --mime-type "$file" | tr -d "[:space:]")
+    case "$mime" in
+      image/*)
+        if [ ! -f "$output" ]; then
+          magick "$file" -auto-orient -thumbnail "'"$size"'" -strip -quality 85 "$output"
+        fi
+        ;;
+      video/*)
+        if [ ! -f "$output" ]; then
+          ffmpeg -nostdin -loglevel error -y \
+            -ss 00:00:02 -i "$file" \
+            -frames:v 1 \
+            -vf "scale=200:-1" \
+            -q:v 2 "$output"
+        fi
+        ;;
+    esac
+  ' _ {} \;
