@@ -27,14 +27,14 @@
             <div class="image-list">
                 <c:forEach var="item" items="${vm.images}">
                     <a class="gallery-image" data-caption="${item}" data-fslightbox="gallery" href="./${item}">
-                        <img src="./thumbnails/${item}" alt="${item}"/>
+                        <img src="./thumbnails/${item}.tb.jpg" alt="${item}"/>
                     </a>
                 </c:forEach>
             </div>
             <div class="video-list">
                 <c:forEach var="item" items="${vm.videos}">
                     <a class="gallery-video" data-caption="${item}" data-fslightbox="gallery" href="./${item}">
-                        <img src="./thumbnails/${item}.jpg" alt="${item}"/>
+                        <img src="./thumbnails/${item}.tb.jpg" alt="${item}"/>
                     </a>
                 </c:forEach>
             </div>

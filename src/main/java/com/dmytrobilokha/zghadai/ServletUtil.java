@@ -2,6 +2,7 @@ package com.dmytrobilokha.zghadai;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.security.MessageDigest;
@@ -19,7 +20,10 @@ public final class ServletUtil {
     }
 
     public static Path getRequestedRelativePath(HttpServletRequest req) {
-        return Path.of(req.getRequestURI().substring(req.getContextPath().length())).normalize();
+        var rawPathString = req.getRequestURI().substring(req.getContextPath().length());
+        // this is needed to be able to process path containing non-latin characters
+        var decodedPathString = URLDecoder.decode(rawPathString, StandardCharsets.UTF_8);
+        return Path.of(decodedPathString).normalize();
     }
 
     public static boolean isStaticContentRequested(HttpServletRequest req) {

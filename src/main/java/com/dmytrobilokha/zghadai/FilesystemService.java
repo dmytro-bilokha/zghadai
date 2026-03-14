@@ -55,6 +55,9 @@ public class FilesystemService {
                 }
             }
         }
+        directories.sort(String::compareTo);
+        imageFiles.sort(String::compareTo);
+        videoFiles.sort(String::compareTo);
         return new DirectoryViewModel(
                 directories, imageFiles, videoFiles, absolutePath.toString().equals(configService.getContentRoot()));
     }
@@ -87,12 +90,14 @@ public class FilesystemService {
     }
 
     private boolean isExposableDirectory(Path path) throws IOException {
+        var dirName = path.getFileName();
         return Files.isDirectory(path)
                 && Files.isReadable(path)
                 && Files.isExecutable(path)
                 && !Files.isSymbolicLink(path)
                 && !Files.isHidden(path)
-                && !THUMBNAILS_DIR.equals(path.getFileName());
+                && !dirName.toString().startsWith(".")
+                && !THUMBNAILS_DIR.equals(dirName);
     }
 
     private boolean isImageFile(Path path) throws IOException {
@@ -100,10 +105,15 @@ public class FilesystemService {
     }
 
     private boolean isLegitFile(Path path) throws IOException {
+        var fileNamePath = path.getFileName();
+        if (fileNamePath == null) {
+            return false;
+        }
         return Files.isRegularFile(path)
                 && Files.isReadable(path)
                 && !Files.isSymbolicLink(path)
-                && !Files.isHidden(path);
+                && !Files.isHidden(path)
+                && !fileNamePath.toString().startsWith(".");
     }
 
     private boolean doesExtensionMatch(Path path, Set<String> extensions) {
