@@ -18,7 +18,7 @@ import java.util.Set;
 public class FilesystemService {
 
     private static final Path THUMBNAILS_DIR = Path.of("thumbnails");
-    private static final Set<String> IMAGE_EXTENSIONS = Set.of("jpg", "jpeg", "png", "gif", "mpo");
+    private static final Set<String> IMAGE_EXTENSIONS = Set.of("jpg", "jpeg", "png", "gif", "mpo", "heic");
     private static final Set<String> VIDEO_EXTENSIONS = Set.of("3gp", "avi", "mov", "mp4", "mpg", "mts", "webm");
 
     private ConfigService configService;
